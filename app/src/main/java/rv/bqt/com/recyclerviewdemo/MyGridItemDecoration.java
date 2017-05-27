@@ -12,13 +12,15 @@ import android.support.v7.widget.RecyclerView.State;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
-/**zhy写的分割线，Item如果为最后一列则右边无间隔线，如果为最后一行则底部无分割线*/
+/**
+ * zhy写的分割线，Item如果为最后一列则右边无间隔线，如果为最后一行则底部无分割线
+ */
 public class MyGridItemDecoration extends RecyclerView.ItemDecoration {
 	private Drawable mDivider;
 
 	public MyGridItemDecoration(Context context) {
 		//通过读取系统主题中的 Android.R.attr.listDivider属性，将其作为Item间的分割线， <item name="android:listDivider">@drawable/divider_bg</item>  
-		TypedArray typedArray = context.obtainStyledAttributes(new int[] { android.R.attr.listDivider });
+		TypedArray typedArray = context.obtainStyledAttributes(new int[]{android.R.attr.listDivider});
 		mDivider = typedArray.getDrawable(0);
 		typedArray.recycle();//回收TypedArray，以便后面重用。This TypedArray should be recycled after use with recycle()
 	}
@@ -45,7 +47,7 @@ public class MyGridItemDecoration extends RecyclerView.ItemDecoration {
 	}
 
 	//******************************************************************************************
-	public void drawHorizontal(Canvas c, RecyclerView parent) {
+	private void drawHorizontal(Canvas c, RecyclerView parent) {
 		int childCount = parent.getChildCount();
 		for (int i = 0; i < childCount; i++) {
 			final View child = parent.getChildAt(i);
@@ -59,7 +61,7 @@ public class MyGridItemDecoration extends RecyclerView.ItemDecoration {
 		}
 	}
 
-	public void drawVertical(Canvas c, RecyclerView parent) {
+	private void drawVertical(Canvas c, RecyclerView parent) {
 		final int childCount = parent.getChildCount();
 		for (int i = 0; i < childCount; i++) {
 			final View child = parent.getChildAt(i);
@@ -76,7 +78,10 @@ public class MyGridItemDecoration extends RecyclerView.ItemDecoration {
 	}
 
 	//******************************************************************************************
-	/**获取RecyclerView有多少列*/
+
+	/**
+	 * 获取RecyclerView有多少列
+	 */
 	private int getSpanCount(RecyclerView parent) {
 		int spanCount = -1; // 列数
 		LayoutManager layoutManager = parent.getLayoutManager();
@@ -90,7 +95,7 @@ public class MyGridItemDecoration extends RecyclerView.ItemDecoration {
 		if (layoutManager instanceof GridLayoutManager) {
 			childCount = childCount - childCount % spanCount;
 			if (pos >= childCount) // 如果是最后一行，则不需要绘制底部
-			return true;
+				return true;
 		} else if (layoutManager instanceof StaggeredGridLayoutManager) {
 			int orientation = ((StaggeredGridLayoutManager) layoutManager).getOrientation();
 			// StaggeredGridLayoutManager 且纵向滚动
@@ -119,7 +124,7 @@ public class MyGridItemDecoration extends RecyclerView.ItemDecoration {
 			} else {
 				childCount = childCount - childCount % spanCount;
 				if (pos >= childCount) // 如果是最后一列，则不需要绘制右边
-				return true;
+					return true;
 			}
 		}
 		return false;
