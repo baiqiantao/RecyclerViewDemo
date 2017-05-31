@@ -1,9 +1,7 @@
 package rv.bqt.com.recyclerviewdemo;
 
 import android.app.Activity;
-import android.graphics.Color;
-import android.graphics.DashPathEffect;
-import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -34,13 +32,20 @@ public class RV_ItemDecorationActivity extends Activity implements MyOnItemClick
 	
 	protected void init() {
 		List<String> mDatas = new ArrayList<String>();
-		mDatas.add("添加VERTICAL间隔线");
-		mDatas.add("添加HORIZONTAL间隔线");
-		mDatas.add("移除VERTICAL间隔线");
-		mDatas.add("recreate");
-		mDatas.add("HorizontalDivider_ItemDecoration");
-		mDatas.add("VerticalDivider_ItemDecoration");
-		mDatas.add("使用Paint");
+		mDatas.add("0.添加VERTICAL间隔线");
+		mDatas.add("1.添加HORIZONTAL间隔线");
+		mDatas.add("2.移除VERTICAL间隔线");
+		mDatas.add("3.recreate");
+		mDatas.add("4.Horizontal_Divider_ItemDecoration");
+		mDatas.add("5.Vertical_Divider_ItemDecoration");
+
+		mDatas.add("6.不包含边界的空白间隔");
+		mDatas.add("7.包含边界的空白间隔");
+		mDatas.add("8.自定义图片间隔 true,false");
+		mDatas.add("9.自定义颜色间隔 false,true");
+		mDatas.add("10.显示但不绘制边界间隔");
+		mDatas.add("11.不绘制左右边界间隔");
+		mDatas.add("12.不绘制上下边界间隔");
 		for (int i = 'A'; i < 'z'; i++) {
 			mDatas.add("" + (char) i);
 		}
@@ -95,14 +100,36 @@ public class RV_ItemDecorationActivity extends Activity implements MyOnItemClick
 						.size(5).color(0xff0000ff).build());
 				break;
 			case 6:
-				Paint paint = new Paint();
-				paint.setStrokeWidth(5);
-				paint.setColor(Color.BLUE);
-				paint.setAntiAlias(true);
-				paint.setPathEffect(new DashPathEffect(new float[]{25.0f, 25.0f}, 0));
-				mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this).margin(20).paint(paint).build());
+				mRecyclerView.addItemDecoration(new GridItemDecoration.Builder().spanCount(4).spaceSize(1).build());
 				break;
 			case 7:
+				mRecyclerView.addItemDecoration(new GridItemDecoration.Builder().spanCount(4).spaceSize(50)
+						.includeLREdge(true).includeTBEdge(true).build());//
+				break;
+			case 8:
+				mRecyclerView.addItemDecoration(new GridItemDecoration.Builder().spanCount(4).spaceSize(12)
+						.includeLREdge(true)
+						.mDivider(getResources().getDrawable(R.mipmap.ic_launcher)).build());//
+				break;
+			case 9:
+				mRecyclerView.addItemDecoration(new GridItemDecoration.Builder().spanCount(4).spaceSize(6)
+						.includeTBEdge(true)
+						.mDivider(new ColorDrawable(0x880000ff)).build());//
+				break;
+			case 10:
+				mRecyclerView.addItemDecoration(new GridItemDecoration.Builder().spanCount(4).spaceSize(50)
+						.includeLREdge(true).includeTBEdge(true).drawLREdge(false).drawTBEdge(false)
+						.mDivider(new ColorDrawable(0x880000ff)).build());//
+				break;
+			case 11:
+				mRecyclerView.addItemDecoration(new GridItemDecoration.Builder().spanCount(4).spaceSize(50)
+						.includeLREdge(true).includeTBEdge(true).drawLREdge(false)
+						.mDivider(new ColorDrawable(0x880000ff)).build());//
+				break;
+			case 12:
+				mRecyclerView.addItemDecoration(new GridItemDecoration.Builder().spanCount(4).spaceSize(50)
+						.includeLREdge(true).includeTBEdge(true).drawTBEdge(false)
+						.mDivider(new ColorDrawable(0x880000ff)).build());//
 				break;
 		}
 	}
