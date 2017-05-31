@@ -20,7 +20,9 @@ public class MainActivity extends ListActivity {
 				"ListView",
 				"横向的GridView",
 				"横向瀑布流",
-				"纵向瀑布流", "ItemDecoration",};
+				"纵向瀑布流",
+				"分割线 ItemDecoration",
+				"BaseRecyclerViewAdapterHelper基本使用"};
 		setListAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, new ArrayList<>(Arrays.asList(array))));
 	}
 
@@ -32,10 +34,8 @@ public class MainActivity extends ListActivity {
 			startActivity(intent);
 		} else if (position == 7) {
 			startActivity(new Intent(this, RV_ItemDecorationActivity.class));
-		} else {
-			Intent intent = new Intent(this, RecyclerViewActivity.class);
-			intent.putExtra("type", position);
-			startActivity(intent);
+		} else if (position == 8) {
+			startActivity(new Intent(this, BRVAHActivity.class));
 		}
 	}
 }

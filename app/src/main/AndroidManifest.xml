@@ -17,6 +17,7 @@
         </activity>
         <activity android:name=".RecyclerViewActivity"/>
         <activity android:name=".RV_ItemDecorationActivity"/>
+        <activity android:name=".BRVAHActivity"/>
     </application>
 
 </manifest>
