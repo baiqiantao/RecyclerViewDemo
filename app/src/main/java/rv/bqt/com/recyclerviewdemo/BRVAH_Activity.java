@@ -17,7 +17,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BRVAHActivity extends Activity implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+public class BRVAH_Activity extends Activity implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
 	private List<String> mDatas;
 	private RecyclerView mRecyclerView;
 	private PullToRefreshAdapter mAdapter;
@@ -70,14 +70,14 @@ public class BRVAHActivity extends Activity implements BaseQuickAdapter.RequestL
 		mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
 			@Override
 			public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-				Toast.makeText(BRVAHActivity.this, "onItemClick" + position, Toast.LENGTH_SHORT).show();
+				Toast.makeText(BRVAH_Activity.this, "onItemClick" + position, Toast.LENGTH_SHORT).show();
 			}
 		});
 		//item中View的点击事件
 		mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
 			@Override
 			public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-				Toast.makeText(BRVAHActivity.this, "onItemChildClick" + position, Toast.LENGTH_SHORT).show();
+				Toast.makeText(BRVAH_Activity.this, "onItemChildClick" + position, Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
@@ -98,7 +98,7 @@ public class BRVAHActivity extends Activity implements BaseQuickAdapter.RequestL
 					mAdapter.loadMoreComplete();
 				} else {
 					isErr = true;
-					Toast.makeText(BRVAHActivity.this, "错误", Toast.LENGTH_LONG).show();
+					Toast.makeText(BRVAH_Activity.this, "错误", Toast.LENGTH_LONG).show();
 					mAdapter.loadMoreFail();
 				}
 			}

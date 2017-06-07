@@ -15,10 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class RecyclerViewActivity extends Activity implements MyOnItemClickLitener {
+public class RV_Activity extends Activity implements MyOnItemClickLitener {
 
 	private RecyclerView mRecyclerView;
-	private MyRecyclerViewAdapter mRecyclerViewAdapter;
+	private RV_Adapter mRecyclerViewAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class RecyclerViewActivity extends Activity implements MyOnItemClickLiten
 		for (int i = 'A'; i < 'z'; i++) {
 			mDatas.add("" + (char) i);
 		}
-		mRecyclerViewAdapter = new MyRecyclerViewAdapter(this, mDatas);
+		mRecyclerViewAdapter = new RV_Adapter(this, mDatas);
 		mRecyclerViewAdapter.setOnItemClickLitener(this);
 		mRecyclerViewAdapter.setMargins(5);//addItemDecoration一会单独拿出来说
 

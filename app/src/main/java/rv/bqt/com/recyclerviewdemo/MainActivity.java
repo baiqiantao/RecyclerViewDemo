@@ -22,20 +22,23 @@ public class MainActivity extends ListActivity {
 				"横向瀑布流",
 				"纵向瀑布流",
 				"分割线 ItemDecoration",
-				"BaseRecyclerViewAdapterHelper基本使用"};
+				"BaseRecyclerViewAdapterHelper基本使用",
+				"RecyclerView数据刷新(有福利)"};
 		setListAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, new ArrayList<>(Arrays.asList(array))));
 	}
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		if (position <= 6) {
-			Intent intent = new Intent(this, RecyclerViewActivity.class);
+			Intent intent = new Intent(this, RV_Activity.class);
 			intent.putExtra("type", position);
 			startActivity(intent);
 		} else if (position == 7) {
-			startActivity(new Intent(this, RV_ItemDecorationActivity.class));
+			startActivity(new Intent(this, ItemDecoration_Activity.class));
 		} else if (position == 8) {
-			startActivity(new Intent(this, BRVAHActivity.class));
+			startActivity(new Intent(this, BRVAH_Activity.class));
+		} else if (position == 9) {
+			startActivity(new Intent(this, Notify_Activity.class));
 		}
 	}
 }

@@ -16,10 +16,10 @@ import com.yqritc.recyclerviewflexibledivider.VerticalDividerItemDecoration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RV_ItemDecorationActivity extends Activity implements MyOnItemClickLitener {
+public class ItemDecoration_Activity extends Activity implements MyOnItemClickLitener {
 
 	private RecyclerView mRecyclerView;
-	private MyRecyclerViewAdapter mRecyclerViewAdapter;
+	private RV_Adapter mRecyclerViewAdapter;
 	private RecyclerView.ItemDecoration decoration;
 
 	@Override
@@ -49,7 +49,7 @@ public class RV_ItemDecorationActivity extends Activity implements MyOnItemClick
 		for (int i = 'A'; i < 'z'; i++) {
 			mDatas.add("" + (char) i);
 		}
-		mRecyclerViewAdapter = new MyRecyclerViewAdapter(this, mDatas);
+		mRecyclerViewAdapter = new RV_Adapter(this, mDatas);
 		mRecyclerViewAdapter.setOnItemClickLitener(this);
 		decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
 

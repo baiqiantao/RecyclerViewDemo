@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Random;
 
-public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.MyViewHolder> {
+public class RV_Adapter extends RecyclerView.Adapter<RV_Adapter.MyViewHolder> {
 	private Context context;
 	private List<String> mDatas;
 	private MyOnItemClickLitener mOnItemClickLitener;
@@ -21,7 +21,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 	private boolean randomWidth = false;
 	private boolean randomHeight = false;
 
-	public MyRecyclerViewAdapter(Context context, List<String> mDatas) {
+	public RV_Adapter(Context context, List<String> mDatas) {
 		this.context = context;
 		this.mDatas = mDatas;
 	}
