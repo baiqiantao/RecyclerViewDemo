@@ -7,16 +7,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
+
+import cn.iwgang.countdownview.CountdownView;
 
 public class Notify_Adapter extends RecyclerView.Adapter<Notify_Adapter.MyViewHolder> {
 	private Context context;
@@ -29,6 +27,23 @@ public class Notify_Adapter extends RecyclerView.Adapter<Notify_Adapter.MyViewHo
 	public Notify_Adapter(Context context, List<PicUrls.BasicPicBean> mDatas) {
 		this.context = context;
 		this.mDatas = mDatas;
+	}
+
+	@Override
+	public void onViewAttachedToWindow(MyViewHolder holder) {
+		int pos = holder.getAdapterPosition();
+		long leftTime = mDatas.get(pos).url.hashCode()+1000L*60*60*24*365*500 - System.currentTimeMillis();
+		if (leftTime > 0) {
+			holder.count.start(leftTime);
+		} else {
+			holder.count.stop();
+			holder.count.allShowZero();
+		}
+	}
+
+	@Override
+	public void onViewDetachedFromWindow(MyViewHolder holder) {
+		holder.count.stop();
 	}
 
 	@Override
@@ -47,12 +62,10 @@ public class Notify_Adapter extends RecyclerView.Adapter<Notify_Adapter.MyViewHo
 		//如果payloads不为空并且viewHolder已经绑定了旧数据了，那么adapter会使用payloads参数进行布局刷新
 		//如果payloads为空，adapter就会重新绑定数据，也就是刷新整个item
 		PicUrls.BasicPicBean bean = mDatas.get(holder.getAdapterPosition());
-		long time = System.currentTimeMillis() + bean.url.hashCode();
-		String data = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date(time));
 
 		if (payloads.isEmpty()) {//为空，即不是调用notifyItemChanged(position,payloads)后执行的，也即在初始化时执行的
-			holder.tv.setText(data);
-			holder.et.setText(bean.name);
+			holder.tv.setText(bean.name);
+			holder.count.start(bean.url.hashCode()+1000L*60*60*24*365*500 - System.currentTimeMillis());
 			Glide.with(context).load(bean.url)
 					.dontAnimate()
 					//.diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true)
@@ -62,10 +75,10 @@ public class Notify_Adapter extends RecyclerView.Adapter<Notify_Adapter.MyViewHo
 			int type = (int) payloads.get(0);// 刷新哪个部分 标志位
 			switch (type) {
 				case NOTIFY_TV:
-					holder.tv.setText(data);//只刷新tv
+					holder.tv.setText(bean.name);//只刷新tv
 					break;
 				case NOTIFY_ET:
-					holder.et.setText(bean.name);//只刷新et
+					holder.count.start(bean.url.hashCode() - System.currentTimeMillis());//只刷新et
 					break;
 				case NOTIFY_IV:
 					Glide.with(context).load(bean.url).dontAnimate().into(holder.iv);//只刷新iv
@@ -102,8 +115,6 @@ public class Notify_Adapter extends RecyclerView.Adapter<Notify_Adapter.MyViewHo
 		notifyItemInserted(position);//更新数据集，注意如果用adapter.notifyDataSetChanged()将没有动画效果
 	}
 
-
-
 	/**
 	 * 移除并更新数据，同时具有动画效果
 	 */
@@ -117,15 +128,15 @@ public class Notify_Adapter extends RecyclerView.Adapter<Notify_Adapter.MyViewHo
 	}
 
 	class MyViewHolder extends RecyclerView.ViewHolder {
+		CountdownView count;
 		TextView tv;
 		ImageView iv;
-		EditText et;
 
 		public MyViewHolder(View view) {
 			super(view);
+			count = (CountdownView) view.findViewById(R.id.count);
 			tv = (TextView) view.findViewById(R.id.tv_name);
 			iv = (ImageView) view.findViewById(R.id.iv_head);
-			et = (EditText) view.findViewById(R.id.et_input);
 		}
 	}
 }

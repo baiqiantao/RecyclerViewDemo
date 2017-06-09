@@ -34,9 +34,9 @@ public class Notify_Activity extends Activity implements MyOnItemClickLitener {
 		mAdapter.setOnItemClickLitener(this);
 		mRecyclerView.setAdapter(mAdapter);//设置adapter
 
-		mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));//设置布局管理器
+		mRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));//设置布局管理器
 		mRecyclerView.setItemAnimator(new DefaultItemAnimator());//设置Item增加、移除动画
-		mRecyclerView.addItemDecoration(new GridItemDecoration.Builder().spanCount(2)
+		mRecyclerView.addItemDecoration(new GridItemDecoration.Builder().spanCount(4)
 				.spaceSize(1).mDivider(new ColorDrawable(0xffff0000)).build());
 	}
 
