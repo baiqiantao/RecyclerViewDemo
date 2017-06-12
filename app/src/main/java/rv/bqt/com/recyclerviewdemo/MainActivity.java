@@ -23,7 +23,7 @@ public class MainActivity extends ListActivity {
 				"纵向瀑布流",
 				"分割线 ItemDecoration",
 				"BaseRecyclerViewAdapterHelper基本使用",
-				"RecyclerView数据刷新(有福利)"};
+				"RecyclerView数据刷新(有福利)",};
 		setListAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, new ArrayList<>(Arrays.asList(array))));
 	}
 

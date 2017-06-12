@@ -29,10 +29,12 @@ public class Notify_Adapter extends RecyclerView.Adapter<Notify_Adapter.MyViewHo
 		this.mDatas = mDatas;
 	}
 
+	//**************************************************关键代码****************************************
 	@Override
 	public void onViewAttachedToWindow(MyViewHolder holder) {
+		super.onViewAttachedToWindow(holder);//父类中为空代码
 		int pos = holder.getAdapterPosition();
-		long leftTime = mDatas.get(pos).url.hashCode()+1000L*60*60*24*365*500 - System.currentTimeMillis();
+		long leftTime = mDatas.get(pos).url.hashCode() + 1000L * 60 * 60 * 24 * 365 * 500 - System.currentTimeMillis();
 		if (leftTime > 0) {
 			holder.count.start(leftTime);
 		} else {
@@ -43,9 +45,11 @@ public class Notify_Adapter extends RecyclerView.Adapter<Notify_Adapter.MyViewHo
 
 	@Override
 	public void onViewDetachedFromWindow(MyViewHolder holder) {
+		super.onViewDetachedFromWindow(holder);
 		holder.count.stop();
 	}
 
+	//**************************************************关键代码****************************************
 	@Override
 	public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.item_notify, parent, false));
@@ -65,7 +69,7 @@ public class Notify_Adapter extends RecyclerView.Adapter<Notify_Adapter.MyViewHo
 
 		if (payloads.isEmpty()) {//为空，即不是调用notifyItemChanged(position,payloads)后执行的，也即在初始化时执行的
 			holder.tv.setText(bean.name);
-			holder.count.start(bean.url.hashCode()+1000L*60*60*24*365*500 - System.currentTimeMillis());
+			holder.count.start(bean.url.hashCode() + 1000L * 60 * 60 * 24 * 365 * 500 - System.currentTimeMillis());
 			Glide.with(context).load(bean.url)
 					.dontAnimate()
 					//.diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true)
